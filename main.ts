@@ -1,11 +1,13 @@
 let number = 0
-function displayNumber (num: number) {
+function displayNumber () {
     led.setBrightness(255)
-    for (let x = 0; x <= 4; x++) {
-        for (let y = 0; y <= 4; y++) {
-            led.plot(x, y)
-        }
-    }
+    basic.showLeds(`
+        # # # # #
+        # # # # #
+        # # # # #
+        # # # # #
+        # # # # #
+        `)
     basic.pause(200)
     for (let index = 0; index <= 255; index++) {
         led.setBrightness(255 - index)
@@ -13,11 +15,6 @@ function displayNumber (num: number) {
     }
     basic.clearScreen()
     led.setBrightness(255)
-}
-input.onGesture(Gesture.Shake, function () {
-    basic.clearScreen()
-    number = randint(1, 6)
-    displayNumber(1)
     if (number == 1) {
         for (let index = 0; index <= 255; index++) {
             led.plotBrightness(2, 2, index)
@@ -64,4 +61,9 @@ input.onGesture(Gesture.Shake, function () {
             basic.pause(5)
         }
     }
+}
+input.onGesture(Gesture.Shake, function () {
+    basic.clearScreen()
+    number = randint(1, 6)
+    displayNumber()
 })

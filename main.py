@@ -1,20 +1,19 @@
 number = 0
-def displayNumber(num: number):
-    for x in range(5):
-        for y in range(5):
-            led.plot(x, y)
+def displayNumber():
+    led.set_brightness(255)
+    basic.show_leds("""
+        # # # # #
+        # # # # #
+        # # # # #
+        # # # # #
+        # # # # #
+        """)
     basic.pause(200)
     for index in range(256):
         led.set_brightness(255 - index)
-        basic.pause(10)
+        basic.pause(5)
     basic.clear_screen()
     led.set_brightness(255)
-
-def on_gesture_shake():
-    global number
-    basic.clear_screen()
-    number = randint(1, 6)
-    displayNumber(1)
     if number == 1:
         for index2 in range(256):
             led.plot_brightness(2, 2, index2)
@@ -54,4 +53,10 @@ def on_gesture_shake():
             led.plot_brightness(4, 2, index7)
             led.plot_brightness(4, 4, index7)
             basic.pause(5)
+
+def on_gesture_shake():
+    global number
+    basic.clear_screen()
+    number = randint(1, 6)
+    displayNumber()
 input.on_gesture(Gesture.SHAKE, on_gesture_shake)
